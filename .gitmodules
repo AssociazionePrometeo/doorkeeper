@@ -1,0 +1,12 @@
+[submodule "rfid"]
+	path = rfid
+	url = git@github.com:AssociazionePrometeo/rfid.git
+[submodule "esp_mqtt"]
+	path = esp_mqtt
+	url = git@github.com:AssociazionePrometeo/esp_mqtt.git
+[submodule "esp_bridge"]
+	path = esp_bridge
+	url = git@github.com:AssociazionePrometeo/esp_bridge.git
+[submodule "espduino"]
+	path = espduino
+	url = git@github.com:AssociazionePrometeo/espduino.git
