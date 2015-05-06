@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "5 may 2015"
+Date "6 may 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -79,15 +79,12 @@ Text Label 2000 3950 0    60   ~ 0
 TX_arduino
 Text Label 1200 3650 2    60   ~ 0
 RX_arduino
-Text Label 1200 3750 2    60   ~ 0
-D4
 Text Label 1300 5350 2    60   ~ 0
 D4
 Wire Wire Line
 	1200 3950 1100 3950
 Wire Wire Line
 	1100 3950 1100 4150
-NoConn ~ 2000 3750
 NoConn ~ 1200 3850
 $Comp
 L CONN_2 P3
@@ -414,28 +411,28 @@ Vcc_esp
 $Comp
 L SW_PUSH SW1
 U 1 1 554907CD
-P 2850 3850
-F 0 "SW1" H 3000 3960 50  0000 C CNN
-F 1 "programming button" H 2850 3770 50  0000 C CNN
-F 2 "~" H 2850 3850 60  0000 C CNN
-F 3 "~" H 2850 3850 60  0000 C CNN
-	1    2850 3850
-	1    0    0    -1  
+P 650 3600
+F 0 "SW1" H 800 3710 50  0000 C CNN
+F 1 "programming button" V 1250 3400 50  0000 C CNN
+F 2 "~" H 650 3600 60  0000 C CNN
+F 3 "~" H 650 3600 60  0000 C CNN
+	1    650  3600
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	3150 3850 3250 3850
+	650  3300 650  3200
 Wire Wire Line
-	3250 3850 3250 3950
+	650  3200 750  3200
 $Comp
 L DGND #PWR012
 U 1 1 55490841
-P 3250 3950
-F 0 "#PWR012" H 3250 3950 40  0001 C CNN
-F 1 "DGND" H 3250 3880 40  0000 C CNN
-F 2 "~" H 3250 3950 60  0000 C CNN
-F 3 "~" H 3250 3950 60  0000 C CNN
-	1    3250 3950
-	1    0    0    -1  
+P 750 3200
+F 0 "#PWR012" H 750 3200 40  0001 C CNN
+F 1 "DGND" H 750 3130 40  0000 C CNN
+F 2 "~" H 750 3200 60  0000 C CNN
+F 3 "~" H 750 3200 60  0000 C CNN
+	1    750  3200
+	0    -1   -1   0   
 $EndComp
 $Comp
 L DGND #PWR013
@@ -517,7 +514,6 @@ F 3 "~" H 4500 5450 60  0000 C CNN
 	1    4500 5450
 	1    0    0    -1  
 $EndComp
-NoConn ~ 4150 5500
 Wire Wire Line
 	4150 5600 3900 5600
 Wire Wire Line
@@ -553,9 +549,7 @@ Text Label 4150 5300 2    60   ~ 0
 D11
 Text Label 4150 5400 2    60   ~ 0
 D12
-Wire Wire Line
-	2000 3850 2550 3850
-Text Label 2550 3850 1    60   ~ 0
+Text Label 650  3900 2    60   ~ 0
 ARDU_RST
 $Comp
 L CONN_4 P6
@@ -844,4 +838,42 @@ Wire Wire Line
 	2850 2200 3050 2200
 Wire Wire Line
 	2850 2600 3050 2600
+Text Label 4150 5500 2    60   ~ 0
+ARDU_RST
+Wire Wire Line
+	650  3900 800  3900
+Wire Wire Line
+	800  3900 800  3750
+Wire Wire Line
+	800  3750 1200 3750
+Wire Wire Line
+	2000 3750 2500 3750
+$Comp
+L SW_PUSH SW?
+U 1 1 554A5A58
+P 2800 3750
+F 0 "SW?" H 2950 3860 50  0000 C CNN
+F 1 "esp reset button" H 2900 4050 50  0000 C CNN
+F 2 "~" H 2800 3750 60  0000 C CNN
+F 3 "~" H 2800 3750 60  0000 C CNN
+	1    2800 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 3750 3200 3750
+Wire Wire Line
+	3200 3750 3200 3850
+$Comp
+L DGND #PWR?
+U 1 1 554A5A60
+P 3200 3850
+F 0 "#PWR?" H 3200 3850 40  0001 C CNN
+F 1 "DGND" H 3200 3780 40  0000 C CNN
+F 2 "~" H 3200 3850 60  0000 C CNN
+F 3 "~" H 3200 3850 60  0000 C CNN
+	1    3200 3850
+	1    0    0    -1  
+$EndComp
+Text Label 2000 3850 0    60   ~ 0
+D4
 $EndSCHEMATC
