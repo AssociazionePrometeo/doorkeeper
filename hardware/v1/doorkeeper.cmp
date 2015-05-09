@@ -1,0 +1,213 @@
+Cmp-Mod V01 Created by CvPcb (2014-01-10 BZR 4027)-stable date = Sat 09 May 2015 01:15:27 CEST
+
+BeginCmp
+TimeStamp = /553947FA;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-3MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /5549055E;
+Reference = D2;
+ValeurCmp = 1N4001;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /554905A2;
+Reference = K1;
+ValeurCmp = RELAYPTH;
+IdModule  = JQC-3F(T33);
+EndCmp
+
+BeginCmp
+TimeStamp = /5549063D;
+Reference = K2;
+ValeurCmp = relay output;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /554909E6;
+Reference = P1;
+ValeurCmp = ESP01 PROGRAMMING PORT;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /55256BF1;
+Reference = P2;
+ValeurCmp = ESP-01;
+IdModule  = pin_array_4x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /552574DE;
+Reference = P3;
+ValeurCmp = Vin;
+IdModule  = BARREL_JACK;
+EndCmp
+
+BeginCmp
+TimeStamp = /553947EB;
+Reference = P4;
+ValeurCmp = ARDU PROGRAMMING PORT;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490B1D;
+Reference = P5;
+ValeurCmp = Software serial;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490F70;
+Reference = P6;
+ValeurCmp = OLED I2C;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490BCD;
+Reference = P7;
+ValeurCmp = RC522;
+IdModule  = SIL-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /554913FF;
+Reference = P8;
+ValeurCmp = Spare Pins;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /55491229;
+Reference = P9;
+ValeurCmp = Led connector;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /553947BB;
+Reference = Q1;
+ValeurCmp = BC546;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /554911A6;
+Reference = Q2;
+ValeurCmp = BC546;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /55492450;
+Reference = R1;
+ValeurCmp = R;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5549247B;
+Reference = R2;
+ValeurCmp = R;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490342;
+Reference = R3;
+ValeurCmp = 0;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5549038A;
+Reference = R4;
+ValeurCmp = 0;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490390;
+Reference = R5;
+ValeurCmp = 0;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5549137F;
+Reference = R6;
+ValeurCmp = 10K;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /554913DD;
+Reference = R7;
+ValeurCmp = 10K;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /55394809;
+Reference = R8;
+ValeurCmp = 4k7;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /554911B2;
+Reference = R9;
+ValeurCmp = 4k7;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /554907CD;
+Reference = SW1;
+ValeurCmp = programming button;
+IdModule  = SparkFun-TACTILE-PTH;
+EndCmp
+
+BeginCmp
+TimeStamp = /55491103;
+Reference = SW2;
+ValeurCmp = Button1;
+IdModule  = SparkFun-TACTILE-PTH;
+EndCmp
+
+BeginCmp
+TimeStamp = /554913D4;
+Reference = SW3;
+ValeurCmp = Button2;
+IdModule  = SparkFun-TACTILE-PTH;
+EndCmp
+
+BeginCmp
+TimeStamp = /554A5A58;
+Reference = SW4;
+ValeurCmp = esp reset button;
+IdModule  = SparkFun-TACTILE-PTH;
+EndCmp
+
+BeginCmp
+TimeStamp = /55256798;
+Reference = U1;
+ValeurCmp = ARDUINO_PRO_MINI;
+IdModule  = ARDUINO_PRO_MINI;
+EndCmp
+
+BeginCmp
+TimeStamp = /55490234;
+Reference = U2;
+ValeurCmp = DC/DC_BANG_ALIM;
+IdModule  = step_down_bang;
+EndCmp
+
+EndListe

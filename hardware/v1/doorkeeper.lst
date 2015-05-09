@@ -1,0 +1,75 @@
+eeschema (2014-01-10 BZR 4027)-stable  >> Creation date: Thu 07 May 2015 20:24:29 CEST
+#Cmp ( order = Reference ) (with SubCmp)
+| D1         LED         ~                   Loc /(X=119.380 mm, Y=38.100 mm); ~           ; ~           
+| D2         1N4001      ~                   Loc /(X=125.730 mm, Y=38.100 mm); ~           ; ~           
+| K1         RELAYPTH    ~                   Loc /(X=142.240 mm, Y=38.100 mm); ~           ; ~           
+| K2         relay output~                   Loc /(X=163.830 mm, Y=38.100 mm); ~           ; ~           
+| P1         ESP01 PROGRAMMING PORT~                   Loc /(X=24.130 mm, Y=190.500 mm); ~           ; ~           
+| P2         ESP-01      ~                   Loc /(X=40.640 mm, Y=96.520 mm); ~           ; ~           
+| P3         Vin         ~                   Loc /(X=49.530 mm, Y=20.320 mm); ~           ; ~           
+| P4         ARDU PROGRAMMING PORT~                   Loc /(X=52.070 mm, Y=190.500 mm); ~           ; ~           
+| P5         Software serial~                   Loc /(X=74.930 mm, Y=190.500 mm); ~           ; ~           
+| P6         OLED I2C    ~                   Loc /(X=114.300 mm, Y=113.030 mm); ~           ; ~           
+| P7         RC522       ~                   Loc /(X=114.300 mm, Y=138.430 mm); ~           ; ~           
+| P8         Spare Pins  ~                   Loc /(X=146.050 mm, Y=114.300 mm); ~           ; ~           
+| P9         Led connector~                   Loc /(X=219.710 mm, Y=36.830 mm); ~           ; ~           
+| Q1         BC546       ~                   Loc /(X=123.190 mm, Y=48.260 mm); TO92        ; ~           
+| Q2         BC546       ~                   Loc /(X=208.280 mm, Y=46.990 mm); TO92        ; ~           
+| R1         R           ~                   Loc /(X=25.400 mm, Y=58.420 mm); ~           ; ~           
+| R2         R           ~                   Loc /(X=38.100 mm, Y=58.420 mm); ~           ; ~           
+| R3         0           ~                   Loc /(X=66.040 mm, Y=55.880 mm); ~           ; ~           
+| R4         0           ~                   Loc /(X=66.040 mm, Y=60.960 mm); ~           ; ~           
+| R5         0           ~                   Loc /(X=66.040 mm, Y=66.040 mm); ~           ; ~           
+| R6         10K         ~                   Loc /(X=106.680 mm, Y=170.180 mm); ~           ; ~           
+| R7         10K         ~                   Loc /(X=106.680 mm, Y=180.340 mm); ~           ; ~           
+| R8         4k7         ~                   Loc /(X=111.760 mm, Y=48.260 mm); ~           ; ~           
+| R9         4k7         ~                   Loc /(X=196.850 mm, Y=46.990 mm); ~           ; ~           
+| SW1        programming button~                   Loc /(X=16.510 mm, Y=91.440 mm); ~           ; ~           
+| SW2        Button1     ~                   Loc /(X=125.730 mm, Y=170.180 mm); ~           ; ~           
+| SW3        Button2     ~                   Loc /(X=125.730 mm, Y=180.340 mm); ~           ; ~           
+| SW4        esp reset button~                   Loc /(X=71.120 mm, Y=95.250 mm); ~           ; ~           
+| U1         ARDUINO_PRO_MINI~                   Loc /(X=48.260 mm, Y=140.970 mm); ~           ; ~           
+| U2         DC/DC_BANG_ALIM                    Loc /(X=50.800 mm, Y=43.180 mm);             ;             
+#End Cmp
+
+#Cmp ( order = Value ) (with SubCmp)
+| LED          D1        Loc /(X=119.380 mm, Y=38.100 mm); ~           ; ~           
+| 1N4001       D2        Loc /(X=125.730 mm, Y=38.100 mm); ~           ; ~           
+| RELAYPTH     K1        Loc /(X=142.240 mm, Y=38.100 mm); ~           ; ~           
+| relay output K2        Loc /(X=163.830 mm, Y=38.100 mm); ~           ; ~           
+| ESP01 PROGRAMMING PORT P1        Loc /(X=24.130 mm, Y=190.500 mm); ~           ; ~           
+| ESP-01       P2        Loc /(X=40.640 mm, Y=96.520 mm); ~           ; ~           
+| Vin          P3        Loc /(X=49.530 mm, Y=20.320 mm); ~           ; ~           
+| ARDU PROGRAMMING PORT P4        Loc /(X=52.070 mm, Y=190.500 mm); ~           ; ~           
+| Software serial P5        Loc /(X=74.930 mm, Y=190.500 mm); ~           ; ~           
+| OLED I2C     P6        Loc /(X=114.300 mm, Y=113.030 mm); ~           ; ~           
+| RC522        P7        Loc /(X=114.300 mm, Y=138.430 mm); ~           ; ~           
+| Spare Pins   P8        Loc /(X=146.050 mm, Y=114.300 mm); ~           ; ~           
+| Led connector P9        Loc /(X=219.710 mm, Y=36.830 mm); ~           ; ~           
+| BC546        Q1        Loc /(X=123.190 mm, Y=48.260 mm); TO92        ; ~           
+| BC546        Q2        Loc /(X=208.280 mm, Y=46.990 mm); TO92        ; ~           
+| 0            R3        Loc /(X=66.040 mm, Y=55.880 mm); ~           ; ~           
+| 0            R4        Loc /(X=66.040 mm, Y=60.960 mm); ~           ; ~           
+| 0            R5        Loc /(X=66.040 mm, Y=66.040 mm); ~           ; ~           
+| 4k7          R8        Loc /(X=111.760 mm, Y=48.260 mm); ~           ; ~           
+| 4k7          R9        Loc /(X=196.850 mm, Y=46.990 mm); ~           ; ~           
+| 10K          R6        Loc /(X=106.680 mm, Y=170.180 mm); ~           ; ~           
+| 10K          R7        Loc /(X=106.680 mm, Y=180.340 mm); ~           ; ~           
+| R            R1        Loc /(X=25.400 mm, Y=58.420 mm); ~           ; ~           
+| R            R2        Loc /(X=38.100 mm, Y=58.420 mm); ~           ; ~           
+| programming button SW1       Loc /(X=16.510 mm, Y=91.440 mm); ~           ; ~           
+| Button1      SW2       Loc /(X=125.730 mm, Y=170.180 mm); ~           ; ~           
+| Button2      SW3       Loc /(X=125.730 mm, Y=180.340 mm); ~           ; ~           
+| esp reset button SW4       Loc /(X=71.120 mm, Y=95.250 mm); ~           ; ~           
+| DC/DC_BANG_ALIM U2        Loc /(X=50.800 mm, Y=43.180 mm);             ;             
+| ARDUINO_PRO_MINI U1        Loc /(X=48.260 mm, Y=140.970 mm); ~           ; ~           
+#End Cmp
+
+#Global, Hierarchical Labels and PinSheets ( order = Sheet Number ) count = 0
+#End labels
+
+#Global, Hierarchical Labels and PinSheets ( order = Alphab. ) count = 0
+
+#End labels
+
+#End List
