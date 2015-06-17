@@ -1,0 +1,12 @@
+mosquitto:
+  build: mosquitto
+  links:
+   - dkdb
+  ports:
+   - "8883:8883"
+dkdb:
+  environment:
+   - MYSQL_ROOT_PASSWORD=dkdb
+  build: mariadb
+  ports:
+   - "3306:3306"
