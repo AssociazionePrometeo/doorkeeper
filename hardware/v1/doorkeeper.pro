@@ -1,11 +1,6 @@
-update=Tue 05 May 2015 20:01:56 CEST
+update=Sat 09 May 2015 02:51:54 CEST
 version=1
-last_client=eeschema
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+last_client=cvpcb
 [pcbnew]
 version=1
 LastNetListRead=
@@ -26,7 +21,6 @@ DrawSegmentWidth=0.200000000000
 BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
-LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -43,6 +37,18 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
+LibName17=arduino_shields
+LibName18=capacitors
+LibName19=connectors
+LibName20=dip
+LibName21=dip4of6
+LibName22=inductors
+LibName23=openlab_to
+LibName24=open-project
+LibName25=SparkFun
+LibName26=switches
+LibName27=w_relay
+LibDir=
 [general]
 version=1
 [eeschema]
@@ -89,3 +95,8 @@ LibName32=open-project
 LibName33=MiscellaneousDevices
 LibName34=relays
 LibName35=SparkFun
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
