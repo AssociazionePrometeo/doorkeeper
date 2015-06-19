@@ -220,7 +220,7 @@ void loop() {
       mqtt.publish(MQTT_PRESENCE_TOPIC,uidCard);
       debugPort.print(F("Publishing on "));
       debugPort.print(F(MQTT_PRESENCE_TOPIC));
-      debugPort.print(F("value "));
+      debugPort.print(F(" value "));
       debugPort.println(uidCard);
 
 
