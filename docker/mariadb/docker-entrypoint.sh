@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 set -e
 
 if [ "${1:0:1}" = '-' ]; then
@@ -51,10 +51,10 @@ EOSQL
 
         chown -R mysql:mysql "$DATADIR"
         
+	# exec in background the import script
+	/tmp/create_database.sh &
 fi
 
-# exec in background the import script
-/tmp/create_database.sh &
 
 exec "$@"
 
