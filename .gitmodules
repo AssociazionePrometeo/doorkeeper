@@ -1,3 +1,6 @@
 [submodule "rfid"]
 	path = rfid
 	url = https://github.com/AssociazionePrometeo/rfid.git
+[submodule "esp-mqtt-arduino"]
+	path = esp-mqtt-arduino
+	url = https://github.com/AssociazionePrometeo/esp-mqtt-arduino.git
