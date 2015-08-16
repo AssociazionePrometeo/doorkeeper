@@ -1,9 +1,10 @@
-
+#include <ESP8266WiFi.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Wire.h>
+#include <MQTT.h>
 #include "font.h"
-
+#include "mem.h"
 /*
 * MFRC522 SPI rfid      esp8266-evb
 * -----------------------------------------------------------------------------------------------------------
@@ -16,8 +17,8 @@
 *3,3V                   3,3V       
 */
 
-#define RST_PIN		15		// 
-#define SS_PIN		16		//
+#define RST_PIN		15 
+#define SS_PIN		16
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);	// Create MFRC522 instance
 char uidCard[8]; // Stores scanned ID read from RFID Module + 1 byte for \0
@@ -31,25 +32,131 @@ char uidCard[8]; // Stores scanned ID read from RFID Module + 1 byte for \0
 *GND                    GND        
 *3,3V                   3,3V       
 */
-#define offset 0x00    // SDD1306                      // offset=0 for SSD1306 controller
+#define offset 0x00   // offset=0 for SSD1306 controller
 #define OLED_address  0x3c
 
+//MQTT Parameters
+#define MQTT_SERVER "192.168.1.10"
+#define MQTT_CLIENTID "Zero_port1"
+#define MQTT_USER "zero"
+#define MQTT_PASS "zero"
+#define MQTT_PRESENCE_TOPIC  "/s19/p/1"
+#define MQTT_CMD_TOPIC "/s19/acl/p/1"
+boolean MQTT_RESET = false;
+
+//WIFI Parameters
+#define WIFI_SSID  "gemini"
+#define WIFI_PASS  "lavispateresa"
+
+//Relay
+#define RELAY_PIN 5
+#define RELAY_OPEN_TIME 5000
+boolean opening = false;
+
+MQTT myMqtt(MQTT_CLIENTID,MQTT_SERVER,8883,0);
+
+void myConnectedCb() {
+    Serial.println("MQTT: Connected");
+    myMqtt.subscribe((char*)MQTT_PRESENCE_TOPIC, 0);
+    myMqtt.subscribe((char*)MQTT_CMD_TOPIC, 0);    
+    myMqtt.publish((char*)MQTT_PRESENCE_TOPIC, MQTT_CLIENTID, strlen(MQTT_CLIENTID), 0, 0);
+}
+
+void myDisconnectedCb(){
+    Serial.println("MQTT: Disconnected");
+    clear_display();
+    MQTT_RESET=true;
+}
+
+void restartMyMqtt() {
+    Serial.println("Starting restart MQTT client");
+    MQTT_RESET=false;
+    while (!myMqtt.isConnected()) {
+      Serial.println("MQTT not connected");
+      delay(5000);
+      myMqtt.disconnect();
+      delay(200);
+      myMqtt.connect();
+    }
+}
+
+void myPublishedCb(){
+    //MQTT_Client* client = (MQTT_Client*)args;
+    Serial.println("MQTT: Published");
+}
+
+void myDataCb(String& topic, String& data){
+    Serial.print(topic);
+    Serial.print(": ");
+    Serial.println(data);
+    
+    if (topic.compareTo(String(MQTT_CMD_TOPIC))==0 &&
+        data.compareTo( String(String(uidCard) + "|open") )==0) {
+          opening=true;
+    }
+    else Serial.println("Nothing to do");
+}
+
 void setup() {
-      Serial.begin(115200);		// Initialize serial communications with the PC
-      while (!Serial);		// Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
-      SPI.begin();			// Init SPI bus
-      mfrc522.PCD_Init();		// Init MFRC522
-      ShowReaderDetails();	// Show details of PCD - MFRC522 Card Reader details
-      Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
-      
-      Wire.begin(2,4);          // Initialize I2C and OLED Display SDA SCL
-      init_OLED();              //
-      reset_display(); 
-      clear_display();
+    //Setup Serial
+    Serial.begin(115200);
+    while (!Serial);
 
-      Serial.println("WebServer ready!");
-      sendStrXY("WebServer ready!",4,0);              // OLED first message 
+    //Setup Relay
+    pinMode(RELAY_PIN, OUTPUT);
+    digitalWrite(RELAY_PIN,LOW);  
 
+    //Setup OLED via I2C
+    Wire.begin(2,4);
+    init_OLED();
+    reset_display(); 
+    clear_display();
+    sendStrXY((char*)"Oled... ok",1,0);
+
+    //Setup NFC via SPI
+    sendStrXY((char*)"NFC.... ",2,0);
+    SPI.begin();			
+    mfrc522.PCD_Init();
+    while (!ShowReaderDetails());
+    Serial.println(F("NFC ready"));
+    sendStrXY((char*)"NFC.... ok",2,0);
+
+    //Setup WIFI
+    sendStrXY((char*)"WIFI... ",3,0);
+    Serial.print("Connecting to ");
+    Serial.println(WIFI_SSID);
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("WiFi connected");  
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+    sendStrXY((char*)"WIFI... ok",3,0);
+    
+    //Setup MQTT
+    sendStrXY((char *)"MQTT... ",4,0);      
+    Serial.println(F("Setup MQTT Client"));
+    myMqtt.setUserPwd(MQTT_USER, MQTT_PASS);
+    myMqtt.onConnected(myConnectedCb);
+    myMqtt.onDisconnected(myDisconnectedCb);
+    myMqtt.onPublished(myPublishedCb);
+    myMqtt.onData(myDataCb);
+    Serial.println("connect mqtt...");
+    while (!myMqtt.isConnected()) {
+      myMqtt.connect();
+      delay(5000);
+    }
+    sendStrXY((char *)"MQTT... ok",4,0);
+
+    //End Setup
+    delay(1000);
+    sendStrXY((char *)"Setup terminated",5,0);
+    delay(1000);
+    clear_display();
+    sendStrXY((char *)"Ready...",1,0);
 }
 
 void loop() {
@@ -57,55 +164,76 @@ void loop() {
       uidToChar(mfrc522.uid.uidByte, uidCard, mfrc522.uid.size);
       //dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
       Serial.println(uidCard);
+      myMqtt.publish(MQTT_PRESENCE_TOPIC,uidCard,strlen(uidCard),0,0);
       //Serial.println();
       clear_display();
-      sendStrXY(uidCard,5,0);
-    }    
+      //sendStrXY(uidCard,3,0);
+      sendStrXY((char*)"Verifying...",3,0);
+    }
+    if (opening) {
+      opening=false;
+      //imporre un controllo sul tempo intercorso tra getID e opening=true
+      sendStrXY((char *)"Open door... ok",3,0);
+      delay(200);
+      digitalWrite(RELAY_PIN,HIGH); // Turns ON Relays
+      delay(RELAY_OPEN_TIME);
+      digitalWrite(RELAY_PIN,LOW); // Turns OFF Relays
+      delay(200);
+      clear_display();
+      sendStrXY((char *)"Ready...",1,0);
+    }
+    if (MQTT_RESET) {
+      Serial.println("Found MQTT_RESET true");
+      restartMyMqtt();
+    }
 }
 
 // Helper routine to dump a byte array as hex values to Serial
 void dump_byte_array(byte *buffer, byte bufferSize) {
-  for (byte i = 0; i < bufferSize; i++) {
-    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-    Serial.print(buffer[i], HEX);
-  }
+    for (byte i = 0; i < bufferSize; i++) {
+      Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+      Serial.print(buffer[i], HEX);
+    }
 }
 
+// Helper routine to dump a byte array as char array
 void uidToChar(byte arr[], char uidCard[], byte arrLength) {
-  int charLength=(arrLength*2 * sizeof(char))+1;
-  for (int i=0;i<arrLength;i++){
-       byte dummy=arr[i]/16;
-       if (dummy<9){
-         uidCard[i*2]=dummy+48;
-       }else{
-         uidCard[i*2]=(dummy)+55;
-       }
-       dummy=arr[i]%16; 
-       if (dummy<9){
-         uidCard[(i*2)+1]=dummy+48;
-       }else{
-         uidCard[(i*2)+1]=(dummy)+55;
-       }    
-  }
-  uidCard[charLength-1]=0;
+    int charLength=(arrLength*2 * sizeof(char))+1;
+    for (int i=0;i<arrLength;i++){
+         byte dummy=arr[i]/16;
+         if (dummy<9){
+           uidCard[i*2]=dummy+48;
+         }else{
+           uidCard[i*2]=(dummy)+55;
+         }
+         dummy=arr[i]%16; 
+         if (dummy<9){
+           uidCard[(i*2)+1]=dummy+48;
+         }else{
+           uidCard[(i*2)+1]=(dummy)+55;
+         }    
+    }
+    uidCard[charLength-1]=0;
 }
 
-void ShowReaderDetails() {
-	// Get the MFRC522 software version
-	byte v = mfrc522.PCD_ReadRegister(mfrc522.VersionReg);
-	Serial.println(F("MFRC522 Software Version: 0x"));
-	Serial.print(v, HEX);
-	if (v == 0x91)
-		Serial.print(F(" = v1.0"));
-	else if (v == 0x92)
-		Serial.print(F(" = v2.0"));
-	else
-		Serial.print(F(" (unknown)"));
-	Serial.println("");
-	// When 0x00 or 0xFF is returned, communication probably failed
-	if ((v == 0x00) || (v == 0xFF)) {
-		Serial.println(F("WARNING: Communication failure, is the MFRC522 properly connected?"));
-	}
+bool ShowReaderDetails() {
+  	// Get the MFRC522 software version
+  	byte v = mfrc522.PCD_ReadRegister(mfrc522.VersionReg);
+  	Serial.println(F("MFRC522 Software Version: 0x"));
+  	Serial.print(v, HEX);
+  	if (v == 0x91)
+  		Serial.print(F(" = v1.0"));
+  	else if (v == 0x92)
+  		Serial.print(F(" = v2.0"));
+  	else
+  		Serial.print(F(" (unknown)"));
+  	Serial.println("");
+  	// When 0x00 or 0xFF is returned, communication probably failed
+  	if ((v == 0x00) || (v == 0xFF)) {
+  		Serial.println(F("WARNING: Communication failure, is the MFRC522 properly connected?"));
+      return false;
+  	}
+   return true;
 }
 
 ///////////////////////////////////////// Get PICC's UID ///////////////////////////////////
@@ -122,6 +250,7 @@ int getID() {
   return 1;
 }
 
+///////////////////////////////////////// Oled display function /////////////////////////////
 //==========================================================//
 // Resets display depending on the actual mode.
 static void reset_display(void)
